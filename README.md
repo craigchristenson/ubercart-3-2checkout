@@ -1,7 +1,5 @@
 #### _For a discount on 2Checkout’s monthly fees, enter promo code:  GIT2CO  during signup._
 
-* [UberCart](#ubercart)
-
 ## UberCart 3 2Checkout
 ----------------------------------------
 
