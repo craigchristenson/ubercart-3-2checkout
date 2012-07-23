@@ -1,6 +1,6 @@
-### _For a discount on 2Checkout’s monthly fees, enter promo code:  GIT2CO  during signup._
+#### _For a discount on 2Checkout’s monthly fees, enter promo code:  GIT2CO  during signup._
 
-### UberCart 3 2Checkout
+## UberCart 3 2Checkout
 ----------------------------------------
 
 This is a fork of the current 2Checkout module that is inluded in the UberCart 3 core. This fork fixes the return process issues, adds Header Redirect support and insures that demo sales are handeled correctly. 
