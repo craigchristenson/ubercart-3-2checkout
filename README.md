@@ -3,7 +3,7 @@
 ## UberCart 3 2Checkout
 ----------------------------------------
 
-This is a fork of the current 2Checkout module that is inluded in the UberCart 3 core. This fork fixes the return process issues, adds Header Redirect support and insures that demo sales are handeled correctly. 
+This is a fork of the current 2Checkout module that is inluded in the UberCart 3 core. This fork fixes the return process issues, adds Header Redirect support, insures that demo sales are handeled correctly and adds support for the INS Fraud Status Changed call. 
 
 ### UberCart 3 Settings
 
@@ -17,7 +17,7 @@ This is a fork of the current 2Checkout module that is inluded in the UberCart 3
 8. Click **Settings**.
 9. Enter your **Vendor Account Number** (2Checkout Account Number).
 10. Under **Secret Word for order verification** enter your Secret Word. (Must be the same value entered on your 2Checkout Site Management page.)
-11. Under **2Checkout checkout type** select either **Single page** checkout or **Multi page** checkout.
+11. Under **2Checkout checkout type** select **Single page** checkout.
 12. Click **Save Configuration**.
 
 ### 2Checkout Settings
@@ -26,6 +26,8 @@ This is a fork of the current 2Checkout module that is inluded in the UberCart 3
 2. Click the **Account** tab and **Site Management** subcategory. 
 3. Under **Direct Return** select **Header Redirect**. 
 4. Enter your **Secret Word**._(Must be the same value entered in your UberCart admin.)_
-5. Click **Save Changes**.
+5. Set your approved URL to "http://www.yourstore.com/cart/2checkout/complete" replacing "yourstore.com" with your store URL.
+6. Under the **Notifications** tab enable the Fraud Status Changed message and set the URL to "http://www.yourstore.com/cart/2checkout/complete" replacing "yourstore.com" with your store URL.
+7. Click **Save Changes**.
 
 **Please contact 2Checkout directly with any integration questions.**
