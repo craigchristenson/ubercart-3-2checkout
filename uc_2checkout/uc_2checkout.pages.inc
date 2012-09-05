@@ -9,6 +9,32 @@
  * Finalizes 2checkout transaction.
  */
 function uc_2checkout_complete($cart_id = 0) {
+
+  if (isset($_POST['message_type'])) {
+
+    watchdog('2Checkout', 'Receiving new order notification for order !order_id.', array('!order_id' => check_plain($_POST['vendor_order_id'])));
+
+    $order = uc_order_load($_POST['vendor_order_id']);
+
+    $md5_hash = $_POST['md5_hash'];
+    $valid = md5($_POST['sale_id'] . variable_get('uc_2checkout_sid') . $_POST['invoice_id'] . variable_get('uc_2checkout_secret_word'));
+
+    if (drupal_strtolower($valid) != drupal_strtolower($md5_hash)) {
+        uc_order_comment_save($order->order_id, 0, t('Fraud Status Changed notification MD5 hash mismatch.'), 'admin');
+        echo "MD5 Hash does not match!";
+    } elseif($_POST['fraud_status'] == "pass") {
+        uc_order_comment_save($order->order_id, 0, t("Order " . $_POST['sale_id'] . " Passed 2Checkout fraud review."), 'admin');
+        uc_order_update_status($_POST['vendor_order_id'], 'completed' );
+	      $build = uc_cart_complete_sale($order, variable_get('uc_new_customer_login', FALSE));
+        echo "Passed Fraud Review";
+			  return $build; 
+    } elseif($_POST['fraud_status'] == "fail") {
+        uc_order_comment_save($order->order_id, 0, t("Order " . $_POST['sale_id'] . " failed 2Checkout fraud review."), 'admin');
+        uc_order_update_status($_POST['vendor_order_id'], 'canceled' );
+        echo "Failed Fraud Review";
+    }
+  } else {
+
   watchdog('2Checkout', 'Receiving new order notification for order !order_id.', array('!order_id' => check_plain($_REQUEST['merchant_order_id'])));
 
   $order = uc_order_load($_REQUEST['merchant_order_id']);
@@ -89,4 +115,5 @@ function uc_2checkout_complete($cart_id = 0) {
   }
 
   return $build;
+}
 }
