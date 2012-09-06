@@ -26,8 +26,8 @@ This is a fork of the current 2Checkout module that is inluded in the UberCart 3
 2. Click the **Account** tab and **Site Management** subcategory. 
 3. Under **Direct Return** select **Header Redirect**. 
 4. Enter your **Secret Word**._(Must be the same value entered in your UberCart admin.)_
-5. Set your approved URL to "http://www.yourstore.com/cart/2checkout/complete" replacing "yourstore.com" with your store URL.
-6. Under the **Notifications** tab enable the Fraud Status Changed message and set the URL to "http://www.yourstore.com/cart/2checkout/complete" replacing "yourstore.com" with your store URL.
+5. Set your approved URL to "http://www.yourstore.com/?q=cart/2checkout/complete" replacing "yourstore.com" with your store URL.
+6. Under the **Notifications** tab enable the Fraud Status Changed message and set the URL to "http://www.yourstore.com/?q=cart/2checkout/complete" replacing "yourstore.com" with your store URL.
 7. Click **Save Changes**.
 
 **Please contact 2Checkout directly with any integration questions.**
