@@ -122,6 +122,11 @@ function uc_payment_method_2checkout($op, &$order, $form = NULL, &$form_state = 
         '#title' => t('Enable demo mode, allowing you to process fake orders for testing purposes.'),
         '#default_value' => variable_get('uc_2checkout_demo', TRUE),
       );
+      $form['uc_2checkout_direct'] = array(
+          '#type' => 'checkbox',
+          '#title' => t('Enable Direct Checkout.'),
+          '#default_value' => variable_get('uc_2checkout_direct', TRUE),
+      );
       $form['uc_2checkout_language'] = array(
         '#type' => 'select',
         '#title' => t('Language preference'),
@@ -153,16 +158,7 @@ function uc_payment_method_2checkout($op, &$order, $form = NULL, &$form_state = 
         '#description' => t('Provide 2Checkout specific text for the submit button on the order review page.'),
         '#default_value' => variable_get('uc_2checkout_checkout_button', t('Submit Order')),
       );
-      $form['uc_2checkout_checkout_type'] = array(
-        '#type' => 'select',
-        '#title' => t('2Checkout.com checkout type'),
-        '#description' => t('Single page checkout only works for stores selling intangible products using credit card payments.'),
-        '#options' => array(
-          'multi' => t('Multi-page checkout'),
-          'single' => t('Single page checkout'),
-        ),
-        '#default_value' => variable_get('uc_2checkout_checkout_type', 'multi'),
-      );
+
       return $form;
   }
 }
@@ -207,7 +203,7 @@ function uc_2checkout_form($form, &$form_state, $order) {
     $data['c_price_' . $i] = uc_currency_format($product->price, FALSE, FALSE, '.');
   }
 
-  $form['#action'] = _uc_2checkout_post_url(variable_get('uc_2checkout_checkout_type', 'multi'));
+  $form['#action'] = 'https://www.2checkout.com/checkout/purchase';
 
   foreach ($data as $name => $value) {
     $form[$name] = array('#type' => 'hidden', '#value' => $value);
@@ -219,18 +215,9 @@ function uc_2checkout_form($form, &$form_state, $order) {
     '#value' => variable_get('uc_2checkout_checkout_button', t('Submit Order')),
   );
 
-  return $form;
-}
-
-/**
- * Helper function to obtain 2Checkout URL for a transaction.
- */
-function _uc_2checkout_post_url($type) {
-  switch ($type) {
-    case 'single':
-      return 'https://www.2checkout.com/checkout/spurchase';
-    case 'multi':
-    default:
-      return 'https://www.2checkout.com/2co/buyer/purchase';
+  if (variable_get('uc_2checkout_direct')) {
+      echo '<script src="https://www.2checkout.com/static/checkout/javascript/direct.min.js"></script>';
   }
+
+  return $form;
 }
