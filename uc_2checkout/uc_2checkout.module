@@ -30,6 +30,10 @@ function uc_2checkout_init() {
   global $conf;
   $conf['i18n_variables'][] = 'uc_2checkout_method_title';
   $conf['i18n_variables'][] = 'uc_2checkout_checkout_button';
+  $scope = array('type' => 'external', 'scope' => 'footer', 'weight' => -1);
+  if (variable_get('uc_2checkout_direct')) {
+    drupal_add_js('https://www.2checkout.com/static/checkout/javascript/direct.min.js', $scope);
+  }
 }
 
 /**
@@ -214,10 +218,6 @@ function uc_2checkout_form($form, &$form_state, $order) {
     '#type' => 'submit',
     '#value' => variable_get('uc_2checkout_checkout_button', t('Submit Order')),
   );
-
-  if (variable_get('uc_2checkout_direct')) {
-      echo '<script src="https://www.2checkout.com/static/checkout/javascript/direct.min.js"></script>';
-  }
 
   return $form;
 }
