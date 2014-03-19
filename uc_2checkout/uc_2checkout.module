@@ -128,7 +128,7 @@ function uc_payment_method_2checkout($op, &$order, $form = NULL, &$form_state = 
       );
       $form['uc_2checkout_direct'] = array(
           '#type' => 'checkbox',
-          '#title' => t('Enable Direct Checkout.'),
+          '#title' => t('Enable Inline Checkout.'),
           '#default_value' => variable_get('uc_2checkout_direct', TRUE),
       );
       $form['uc_2checkout_language'] = array(
